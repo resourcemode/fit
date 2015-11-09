@@ -1,0 +1,22 @@
+{
+  "name": "fit platform",
+  "version": "5.1.11",
+  "homepage": "https://github.com/resourcemode/fit",
+  "authors": [
+    "Michael Favila <resourcemode@yahoo.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "admin-lte#~2.3.2",
+    "jquery": "~2.1.4",
+    "angular": "angularjs#~1.4.7",
+    "font-awesome": "fontawesome#~4.4.0"
+  }
+}
