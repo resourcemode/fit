@@ -5,6 +5,12 @@
  * Date: 9/11/15
  * Time: 3:43 PM
  */
-Route::get('/', function () {
-    return view('welcome');
+
+Route::group(['namespace' => 'Customer'], function()
+{
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::get('welcome', ['as' => 'getWelcome', 'uses' => 'WelcomeController@index']);
 });
