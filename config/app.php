@@ -148,8 +148,12 @@ return [
         /**
          * Third party library should go here
          */
+
         //'Cartalyst\Sentinel\Laravel\SentinelServiceProvider',
-        Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class
+        Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
+
+        // laravel form
+        Illuminate\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -205,12 +209,13 @@ return [
          */
 
         // sentinel
-        //'Activation' => 'Cartalyst\Sentinel\Laravel\Facades\Activation',
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
-        //'Reminder'   => 'Cartalyst\Sentinel\Laravel\Facades\Reminder',
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
-        //'Sentinel'   => 'Cartalyst\Sentinel\Laravel\Facades\Sentinel',
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
+
+        // Laravel form
+        'Form' => Illuminate\Html\FormFacade::class,
+        'Html' => Illuminate\Html\HtmlFacade::class,
 
     ],
 

@@ -11,13 +11,20 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class AuthRepository
 {
-    protected $user;
+    /**
+     * @param array $credentials
+     * @return object|\Exception
+     */
+    public function login(array $credentials)
+    {
+        $remember = (bool) $credentials['remember'];
 
-//    public function __construct(Sentinel $sentinel)
-//    {
-//        $this->user = $sentinel->getUser();
-//    }
+        return Sentinel::authenticate($credentials, $remember);
+    }
 
+    /**
+     * @return object user
+     */
     public function getUser()
     {
         return Sentinel::getUser();

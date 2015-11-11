@@ -2,64 +2,73 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Rules\AuthRules;
+use App\Repositories\Authentication\AuthRepository;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
+use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
-
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
     /**
-     * Create a new authentication controller instance.
+     * Instantiate/Inject Dependencies
      *
-     * @return void
+     * @param AuthRules $authRules
+     * @param AuthRepository $authRepository
      */
-    public function __construct()
+    public function __construct(AuthRules $authRules, AuthRepository $authRepository)
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->authRules = $authRules;
+        $this->authRepository = $authRepository;
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Get the authentication page
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function validator(array $data)
+    protected function getAuth()
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        return view('customer.auth.login');
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Process the authentication
      *
-     * @param  array  $data
-     * @return User
+     * @param Request $request
+     * @return mixed
      */
-    protected function create(array $data)
+    protected function postAuth(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $formData = $request->all();
+
+        $validator = Validator::make($formData, $this->authRules->getRules(), $this->authRules->getMessage());
+
+        if ($validator->fails())  {
+            return Redirect::back()
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        try {
+            $this->authRepository->login($formData);
+            $errorMessage = 'Invalid login or password.';
+        } catch (NotActivatedException $e) {
+            $errorMessage = 'Account is not activated!';
+            return Redirect::to('reactivate')->with([
+                'user' => $e->getUser(),
+                'errors' => $errorMessage
+            ]);
+        } catch (ThrottlingException $e) {
+            $delay = $e->getDelay();
+            $errorMessage = "Your account is blocked for {$delay} second(s).";
+        }
+
+        return Redirect::back()
+            ->withInput()
+            ->withErrors(['errors' => $errorMessage]);
     }
 }

@@ -40,7 +40,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">401 Error.</div>
+                <div class="title">Whoops! Something went wrong.</div>
+                <h1>Unauthorized Access</h1>
             </div>
         </div>
     </body>

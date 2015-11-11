@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Http\Rules\AuthRules;
 use App\Models\User;
 use App\Repositories\Authentication\AuthRepository;
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 

@@ -11,6 +11,4 @@ Route::group(['namespace' => 'Customer'], function()
     Route::get('/', function () {
         return view('welcome');
     });
-
-    Route::get('welcome', ['as' => 'getWelcome', 'uses' => 'WelcomeController@index']);
 });
