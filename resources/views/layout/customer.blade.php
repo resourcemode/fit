@@ -11,6 +11,10 @@
         @include('layout.menu')
     </header>
 
+    <aside class="main-sidebar">
+        @include('layout.sidebar')
+    </aside>
+
     <div class="content-wrapper">
         @yield('content')
     </div>
@@ -27,6 +31,11 @@
 <script type="text/javascript" href="{{ URL::to('/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"> </script>
 <script type="text/javascript" href="{{ URL::to('/bower_components/AdminLTE/dist/js/app.min.js') }}"> </script>
 @yield('inlineScript')
+
+<!-- This is only necessary if you do Flash::overlay('...') -->
+<script>
+    $('#flash-overlay-modal').modal();
+</script>
 
 </body>
 </html>

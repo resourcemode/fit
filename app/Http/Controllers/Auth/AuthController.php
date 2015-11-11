@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Rules\AuthRules;
 use App\Repositories\Authentication\AuthRepository;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
+use Laracasts\Flash\Flash;
 
 class AuthController extends Controller
 {
@@ -55,7 +57,9 @@ class AuthController extends Controller
 
         try {
             $this->authRepository->login($formData);
-            $errorMessage = 'Invalid login or password.';
+
+            return redirect('/welcome');
+
         } catch (NotActivatedException $e) {
             $errorMessage = 'Account is not activated!';
             return Redirect::to('reactivate')->with([
@@ -67,8 +71,23 @@ class AuthController extends Controller
             $errorMessage = "Your account is blocked for {$delay} second(s).";
         }
 
+        $errorMessage = 'Invalid login or password.';
+
         return Redirect::back()
             ->withInput()
             ->withErrors(['errors' => $errorMessage]);
+    }
+
+    public function getLogout()
+    {
+        if (Sentinel::check()) {
+            $this->authRepository->logout();
+
+            Flash::success('Log out successfully!');
+
+            return Redirect::route('getAuth');
+        }
+
+        return Redirect::route('getAuth');
     }
 }

@@ -12,6 +12,8 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 class AuthRepository
 {
     /**
+     * Authenticate user credentials
+     *
      * @param array $credentials
      * @return object|\Exception
      */
@@ -23,6 +25,18 @@ class AuthRepository
     }
 
     /**
+     * Log out the current logged in user
+     *
+     * @return boolean
+     */
+    public function logout()
+    {
+        return Sentinel::logout();
+    }
+
+    /**
+     * Get the logged in user
+     *
      * @return object user
      */
     public function getUser()

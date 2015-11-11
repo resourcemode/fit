@@ -10,7 +10,7 @@ Route::group(['namespace' => 'Auth'], function()
 {
     Route::get('auth', ['as' => 'getAuth', 'uses' => 'AuthController@getAuth']);
     Route::post('auth', ['as' => 'postAuth', 'uses' => 'AuthController@postAuth']);
-
+    Route::get('logout', ['as' => 'getLogout', 'uses' => 'AuthController@getLogout']);
 });
 
 Route::group(['namespace' => 'Customer'], function()

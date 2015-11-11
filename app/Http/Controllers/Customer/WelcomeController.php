@@ -26,36 +26,18 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', 'michael@incube8.sg')->first();
+//        $userInformation = [
+//            'email' => 'michael@incube8.sg',
+//            'password' => 'password',
+//            'first_name' => 'Michael',
+//            'last_name' => 'Favila'
+//        ];
 
-        if (empty($user)) {
-            $userInformation = [
-                'email' => 'michael@incube8.sg',
-                'password' => 'password',
-                'first_name' => 'Michael',
-                'last_name' => 'Favila'
-            ];
-
-            try {
-                Sentinel::create($userInformation);
-            } catch (\Exception $e) {
-
-            }
+        if (Sentinel::check()) {
+            return View::make('customer.list');
         }
 
-
-        if ($user = Sentinel::authenticateAndRemember(['email' =>'michael@incube8.sg','password' => 'password'])) {
-
-            if (Sentinel::check()) {
-                return View::make('customer.list')->with([
-                    'currentUser' => $user
-                ]);
-            }
-
-            abort(401);
-        }
-
-        abort(405);
+        abort(401);
     }
 
     /**

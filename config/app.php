@@ -155,6 +155,9 @@ return [
         // laravel form
         Illuminate\Html\HtmlServiceProvider::class,
 
+        // flash messenger helper
+        Laracasts\Flash\FlashServiceProvider::class,
+
     ],
 
     /*
@@ -216,6 +219,9 @@ return [
         // Laravel form
         'Form' => Illuminate\Html\FormFacade::class,
         'Html' => Illuminate\Html\HtmlFacade::class,
+
+        // flash messenger helper
+        'Flash' => Laracasts\Flash\Flash::class,
 
     ],
 

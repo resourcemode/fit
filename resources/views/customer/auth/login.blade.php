@@ -3,6 +3,8 @@
 @section('content')
 <section class="content">
 
+    @include('flash::message')
+
     <div class="row">
         <div class="col-xs-12">
             @if (count($errors) > 0)
@@ -29,6 +31,11 @@
             <div class="form-group">
                 {!! Form::label('password', 'Password') !!}
                 {!!  Form::password('password', ['class' => 'form-control']) !!}
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('remember', 'Remember') !!}
+                {!!  Form::checkbox('remember', true, ['class' => 'form-control']) !!}
             </div>
 
             {!!  Form::submit('Log In', ['class' => 'btn btn-primary']) !!}

@@ -1,6 +1,9 @@
 @extends('layout.customer')
 
 @section('content')
-<h1>Blah Blah</h1>
-<h3> Welcome,  {{ $currentUser->first_name }}</h3>
+    <section class="content">
+        <div class="row">
+            <h1>How Does FitBlahBlah Help Me?</h1>
+        </div>
+    </section>
 @endsection
