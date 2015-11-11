@@ -34,8 +34,8 @@ class AuthRules
     {
         return [
             'email.unique' => 'Email already in use',
-            'email.required' => 'Email is required field',
-            'password.required' => 'Password is Required field',
+            'email.required' => 'Email is required',
+            'password.required' => 'Password is required',
         ];
     }
 }
