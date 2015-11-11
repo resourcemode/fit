@@ -7,9 +7,16 @@
 
 namespace App\Http\Rules;
 
-
+/**
+ * Class AuthRules
+ */
 class AuthRules
 {
+    /**
+     * List of auth rules
+     *
+     * @return array
+     */
     public static function getRules()
     {
         return [
@@ -18,12 +25,17 @@ class AuthRules
         ];
     }
 
+    /**
+     * List of auth custom error messages
+     *
+     * @return array
+     */
     public static function getMessage()
     {
         return [
             'email.unique' => 'Email already in use',
-            'email.required' => 'Required field',
-            'password.required' => 'Required field',
+            'email.required' => 'Email is required field',
+            'password.required' => 'Password is Required field',
         ];
     }
 }
