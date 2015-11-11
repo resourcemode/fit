@@ -3,7 +3,7 @@
 <head>
     @include('layout.header')
 </head>
-<body class="skin-green-light">
+<body class="hold-transition skin-purple-light fixed">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="wrapper">
@@ -16,6 +16,7 @@
     </aside>
 
     <div class="content-wrapper">
+        @include('layout.breadcrumb')
         @yield('content')
     </div>
 
@@ -27,15 +28,8 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script type="text/javascript" src="{{ URL::to('/bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script type="text/javascript" href="{{ URL::to('/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"> </script>
-<script type="text/javascript" href="{{ URL::to('/bower_components/AdminLTE/dist/js/app.min.js') }}"> </script>
+@include('layout.jsscripts')
 @yield('inlineScript')
-
-<!-- This is only necessary if you do Flash::overlay('...') -->
-<script>
-    $('#flash-overlay-modal').modal();
-</script>
 
 </body>
 </html>

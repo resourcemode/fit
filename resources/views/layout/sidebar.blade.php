@@ -1,16 +1,18 @@
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
+      @if(isset($loggedInUser))
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
           <img src="{{ URL::to('/bower_components/AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ $loggedInUser->first_name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
+      @endif
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">

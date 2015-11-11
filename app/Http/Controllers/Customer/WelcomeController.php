@@ -26,18 +26,11 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-//        $userInformation = [
-//            'email' => 'michael@incube8.sg',
-//            'password' => 'password',
-//            'first_name' => 'Michael',
-//            'last_name' => 'Favila'
-//        ];
-
-        if (Sentinel::check()) {
-            return View::make('customer.list');
+        if (! Sentinel::check()) {
+            abort(401);
         }
 
-        abort(401);
+        return View::make('customer.welcome');
     }
 
     /**

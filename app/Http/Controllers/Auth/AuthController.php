@@ -34,6 +34,10 @@ class AuthController extends Controller
      */
     protected function getAuth()
     {
+        if (Sentinel::check()) {
+            return redirect()->route('getWelcome');
+        }
+
         return view('customer.auth.login');
     }
 
